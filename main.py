@@ -7,6 +7,8 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from dotenv import load_dotenv
 from discord.ext import commands, tasks
 from collections import defaultdict
+from flask import Flask
+from threading import Thread
 
 # discord token
 load_dotenv()
@@ -22,6 +24,23 @@ intents.message_content = True
 intents.members = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
+
+
+# API endpoint
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Bot is alive!", 200
+
+def run_web():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+
+def keep_alive():
+    t = Thread(target=run_web)
+    t.start()
+
 
 # Lista de horários para enviar mensagens
 SPAWNS = [
