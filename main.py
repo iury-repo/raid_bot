@@ -10,7 +10,7 @@ from collections import defaultdict
 from flask import Flask
 from threading import Thread
 
-# discord token
+# Discord token
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
 
@@ -23,8 +23,8 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 
+# Bot prefix
 bot = commands.Bot(command_prefix='!', intents=intents)
-
 
 # API endpoint
 app = Flask(__name__)
@@ -41,25 +41,24 @@ def keep_alive():
     t = Thread(target=run_web)
     t.start()
 
-
 # Lista de horários para enviar mensagens
 SPAWNS = [
     ("Gorgon", 1, 0), ("Gorgon", 2, 0), ("Gorgon", 3, 0), ("Gorgon", 4, 0), ("Gorgon", 5, 0),
 
     ("Ice Queen", 1, 45), ("Ice Queen", 3, 45), ("Ice Queen", 5, 45),
-    ("Ice Queen", 12, 45), ("Ice Queen", 16, 45), ("Ice Queen", 20, 45),
+    ("Ice Queen", 12, 45), ("Ice Queen", 16, 45), ("Ice Queen", 20, 55),
 
     ("White Wizard", 8, 45), ("White Wizard", 12, 45),
-    ("White Wizard", 16, 45), ("White Wizard", 20, 45), ("White Wizard", 0, 45),
+    ("White Wizard", 16, 45), ("White Wizard", 20, 55), ("White Wizard", 0, 45),
 
     ("Dourados", 0, 0), ("Dourados", 4, 0), ("Dourados", 8, 0),
     ("Dourados", 12, 0), ("Dourados", 16, 0),
 
     ("Red Dragon", 8, 35), ("Red Dragon", 12, 35),
-    ("Red Dragon", 16, 35), ("Red Dragon", 20, 35), ("Red Dragon", 0, 35),
+    ("Red Dragon", 16, 35), ("Red Dragon", 20, 55), ("Red Dragon", 0, 35),
 
     ("Skeleton King", 8, 25), ("Skeleton King", 12, 25),
-    ("Skeleton King", 16, 25), ("Skeleton King", 20, 25), ("Skeleton King", 0, 25),
+    ("Skeleton King", 16, 25), ("Skeleton King", 20, 55), ("Skeleton King", 0, 25),
 ]
 
 def adjust(hour, minute, offset=5):
@@ -75,7 +74,7 @@ for boss, h, m in SPAWNS:
 # ---------------------------------------------------------------
 
 async def send_alert(bosses):
-    channel = await bot.fetch_channel(1471944969093648535)
+    channel = await bot.fetch_channel(533005103855304706)
 
     msg = "⚔️ Bosses spawnando em 5 minutos @everyone:\n"
     msg += "\n".join(f"• {b}" for b in bosses)
