@@ -99,5 +99,5 @@ async def on_ready():
         
     scheduler.start()
 
-
+keep_alive()
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
