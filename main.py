@@ -46,19 +46,19 @@ SPAWNS = [
     ("Gorgon", 1, 0), ("Gorgon", 2, 0), ("Gorgon", 3, 0), ("Gorgon", 4, 0), ("Gorgon", 5, 0),
 
     ("Ice Queen", 1, 45), ("Ice Queen", 3, 45), ("Ice Queen", 5, 45),
-    ("Ice Queen", 12, 45), ("Ice Queen", 16, 45), ("Ice Queen", 20, 55),
+    ("Ice Queen", 12, 45), ("Ice Queen", 16, 45), ("Ice Queen", 20, 45),
 
     ("White Wizard", 8, 45), ("White Wizard", 12, 45),
-    ("White Wizard", 16, 45), ("White Wizard", 21, 40), ("White Wizard", 0, 45),
+    ("White Wizard", 16, 45), ("White Wizard", 20, 45), ("White Wizard", 0, 45),
 
     ("Dourados", 0, 0), ("Dourados", 4, 0), ("Dourados", 8, 0),
     ("Dourados", 12, 0), ("Dourados", 16, 0),
 
     ("Red Dragon", 8, 35), ("Red Dragon", 12, 35),
-    ("Red Dragon", 16, 35), ("Red Dragon", 21, 40), ("Red Dragon", 0, 35),
+    ("Red Dragon", 16, 35), ("Red Dragon", 20, 35), ("Red Dragon", 0, 35),
 
     ("Skeleton King", 8, 25), ("Skeleton King", 12, 25),
-    ("Skeleton King", 16, 25), ("Skeleton King", 21, 40), ("Skeleton King", 0, 25),
+    ("Skeleton King", 16, 25), ("Skeleton King", 20, 25), ("Skeleton King", 0, 25),
 ]
 
 def adjust(hour, minute, offset=5):
