@@ -15,7 +15,7 @@ load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
 
 # Scheduler assíncrono
-scheduler = AsyncIOScheduler()
+scheduler = AsyncIOScheduler(timezone="America/Sao_Paulo")
 
 # Logging
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
@@ -49,16 +49,16 @@ SPAWNS = [
     ("Ice Queen", 12, 45), ("Ice Queen", 16, 45), ("Ice Queen", 20, 55),
 
     ("White Wizard", 8, 45), ("White Wizard", 12, 45),
-    ("White Wizard", 16, 45), ("White Wizard", 20, 55), ("White Wizard", 0, 45),
+    ("White Wizard", 16, 45), ("White Wizard", 21, 6), ("White Wizard", 0, 45),
 
     ("Dourados", 0, 0), ("Dourados", 4, 0), ("Dourados", 8, 0),
     ("Dourados", 12, 0), ("Dourados", 16, 0),
 
     ("Red Dragon", 8, 35), ("Red Dragon", 12, 35),
-    ("Red Dragon", 16, 35), ("Red Dragon", 20, 55), ("Red Dragon", 0, 35),
+    ("Red Dragon", 16, 35), ("Red Dragon", 21, 6), ("Red Dragon", 0, 35),
 
     ("Skeleton King", 8, 25), ("Skeleton King", 12, 25),
-    ("Skeleton King", 16, 25), ("Skeleton King", 20, 55), ("Skeleton King", 0, 25),
+    ("Skeleton King", 16, 25), ("Skeleton King", 21, 6), ("Skeleton King", 0, 25),
 ]
 
 def adjust(hour, minute, offset=5):
@@ -85,18 +85,19 @@ async def send_alert(bosses):
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
 
-    for (hour, minute), bosses in alerts.items():
-        scheduler.add_job(
-        send_alert,
-        "cron",
-        hour=hour,
-        minute=minute,
-        args=[bosses],
-        id=f"alert_{hour}_{minute}",
-        replace_existing=True
-        )
+    if not scheduler.running:
+        for (hour, minute), bosses in alerts.items():
+            scheduler.add_job(
+            send_alert,
+            "cron",
+            hour=hour,
+            minute=minute,
+            args=[bosses],
+            id=f"alert_{hour}_{minute}",
+            replace_existing=True
+            )
         
-    scheduler.start()
+        scheduler.start()
 
 keep_alive()
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
